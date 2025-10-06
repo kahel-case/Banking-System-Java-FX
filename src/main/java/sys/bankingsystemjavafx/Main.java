@@ -6,14 +6,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
 
+    Image frameIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Logo/Logo_FrameIcon.png")));
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -22,7 +20,6 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add("style.css");
 
-        Image frameIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Logo/Logo_FrameIcon.png")));
         stage.setTitle("Banking System");
         stage.setScene(scene);
         stage.show();

@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sys.bankingsystemjavafx.LauncherController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sys.controller.LauncherController">
    <children>
       <VBox fx:id="page_launcher" alignment="CENTER" prefHeight="509.0" prefWidth="600.0" spacing="18.0">
          <children>
@@ -51,7 +50,7 @@
             </Label>
             <TextField fx:id="textField_userName" alignment="CENTER" maxWidth="286.0" prefHeight="40.0" prefWidth="286.0" promptText="Username" />
             <PasswordField fx:id="passwordField_password" alignment="CENTER" maxWidth="286.0" prefHeight="40.0" prefWidth="286.0" promptText="Password" />
-            <Button fx:id="btn_logIn" mnemonicParsing="false" prefHeight="42.0" prefWidth="306.0" text="Log in to my account" textAlignment="CENTER">
+            <Button fx:id="btn_logIn" mnemonicParsing="false" onAction="#logInSuccessful" prefHeight="42.0" prefWidth="306.0" text="Log in to my account" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

@@ -1,3 +1,6 @@
+/*
+    GENERIC ATTRIBUTES
+*/
 .button {
     -fx-background-color: linear-gradient(#888888, #000000);
     -fx-text-fill: #FFFFFF;
@@ -18,6 +21,9 @@
     -fx-border-color: #000000;
 }
 
+/*
+    UNIQUE ATTRIBUTES
+*/
 #backButton {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -33,3 +39,18 @@
     -fx-border-color: transparent;
     -fx-text-fill: linear-gradient(#AAAAAA, #AAAAAA);
 }
+
+#background {
+    -fx-background-image: url('images/Background/background_gray.png');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#background_sharp {
+    -fx-background-image: url('images/Background/background_lightGray_sharp.png');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
