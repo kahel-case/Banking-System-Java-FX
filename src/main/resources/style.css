@@ -54,3 +54,11 @@
     -fx-background-position: center;
 }
 
+#transaction_log {
+    -fx-background-image: url('images/Background/background_lightGray_sharp.png');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-effect: dropshadow(gaussian, #0000005b, 0, 0, 2, 2);
+}
+

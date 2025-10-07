@@ -38,25 +38,25 @@ public class LauncherController implements Initializable {
     @FXML
     private void signInButtonClick() {
         refreshFields();
-        page_signIn.setVisible(true);
         page_launcher.setVisible(false);
         page_createAccount.setVisible(false);
+        page_signIn.setVisible(true);
     }
 
     @FXML
     protected void createAccountButtonClick() {
         refreshFields();
-        page_createAccount.setVisible(true);
         page_launcher.setVisible(false);
         page_signIn.setVisible(false);
+        page_createAccount.setVisible(true);
     }
 
     @FXML
     protected void backToMainButtonClick() {
         refreshFields();
-        page_launcher.setVisible(true);
         page_signIn.setVisible(false);
         page_createAccount.setVisible(false);
+        page_launcher.setVisible(true);
     }
 
     @FXML
@@ -64,9 +64,9 @@ public class LauncherController implements Initializable {
         refreshFields();
         JOptionPane.showMessageDialog(null, "Successfully create a new account!");
 
-        page_launcher.setVisible(true);
         page_signIn.setVisible(false);
         page_createAccount.setVisible(false);
+        page_launcher.setVisible(true);
     }
 
     @FXML

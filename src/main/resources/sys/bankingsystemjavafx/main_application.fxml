@@ -4,6 +4,7 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -14,6 +15,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sys.controller.MainApplicationController">
    <children>
@@ -29,7 +32,7 @@
                <children>
                   <HBox HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="btn_logOut" mnemonicParsing="false" onAction="#logOutSuccessful" prefHeight="30.0" prefWidth="30.0" HBox.hgrow="ALWAYS">
+                        <Button fx:id="btn_logOut" mnemonicParsing="false" onAction="#logOutSuccessful" prefHeight="54.0" prefWidth="54.0" HBox.hgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -45,7 +48,7 @@
                   </HBox>
                   <HBox alignment="TOP_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="btn_notification" mnemonicParsing="false" onAction="#notificationButtonClick" prefHeight="30.0" prefWidth="30.0" HBox.hgrow="ALWAYS">
+                        <Button fx:id="btn_notification" mnemonicParsing="false" onAction="#notificationButtonClick" prefHeight="54.0" prefWidth="54.0" HBox.hgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -159,7 +162,7 @@
             <Insets bottom="60.0" />
          </padding>
       </VBox>
-      <VBox fx:id="page_deposit" prefHeight="200.0" prefWidth="100.0" visible="false" StackPane.alignment="TOP_CENTER">
+      <VBox fx:id="page_deposit" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false" StackPane.alignment="TOP_CENTER">
          <children>
             <HBox id="background_sharp" spacing="40.0">
                <children>
@@ -227,7 +230,7 @@
                         <Font size="22.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="btn_depositAction" mnemonicParsing="false" prefHeight="47.0" prefWidth="110.0" text="Deposit" />
+                  <Button fx:id="btn_depositAction" mnemonicParsing="false" onAction="#depositAction" prefHeight="47.0" prefWidth="110.0" text="Deposit" />
                </children>
                <VBox.margin>
                   <Insets left="40.0" right="40.0" />
@@ -235,7 +238,7 @@
             </VBox>
          </children>
       </VBox>
-      <VBox fx:id="page_withdraw" prefHeight="200.0" prefWidth="100.0" visible="false">
+      <VBox fx:id="page_withdraw" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
          <children>
             <HBox id="background_sharp" spacing="40.0">
                <children>
@@ -303,7 +306,7 @@
                         <Font size="22.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="btn_withdrawAction" mnemonicParsing="false" prefHeight="47.0" prefWidth="110.0" text="Withdraw" />
+                  <Button fx:id="btn_withdrawAction" mnemonicParsing="false" onAction="#withdrawAction" prefHeight="47.0" prefWidth="110.0" text="Withdraw" />
                </children>
                <VBox.margin>
                   <Insets left="40.0" right="40.0" />
@@ -311,7 +314,7 @@
             </VBox>
          </children>
       </VBox>
-      <VBox fx:id="page_transfer" prefHeight="200.0" prefWidth="100.0">
+      <VBox fx:id="page_transfer" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
          <children>
             <HBox id="background_sharp" spacing="40.0">
                <children>
@@ -384,12 +387,104 @@
                         <Font size="22.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="btn_transferAction" mnemonicParsing="false" prefHeight="47.0" prefWidth="110.0" text="Transfer" />
+                  <Button fx:id="btn_transferAction" mnemonicParsing="false" onAction="#transferAction" prefHeight="47.0" prefWidth="110.0" text="Transfer" />
                </children>
                <VBox.margin>
                   <Insets left="40.0" right="40.0" />
                </VBox.margin>
             </VBox>
+         </children>
+      </VBox>
+      <VBox fx:id="page_history" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+         <children>
+            <HBox id="background_sharp" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#backToMainMenu" text="Back">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_arrow_left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="TRANSACTION HISTORY" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+            <ScrollPane fitToHeight="true" fitToWidth="true">
+               <content>
+                  <VBox fx:id="transactionHistory_contentArea" alignment="TOP_CENTER" minWidth="532.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+      <VBox fx:id="page_notifications" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <HBox id="background_sharp" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#backToMainMenu" text="Back">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_arrow_left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="NOTIFICATIONS" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+            <ScrollPane fitToHeight="true" fitToWidth="true">
+               <content>
+                  <VBox fx:id="transactionHistory_contentArea1" alignment="TOP_CENTER" minWidth="532.0">
+                     <children>
+                        <TextFlow id="background_sharp" disable="true" lineSpacing="5.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" textAlignment="JUSTIFY">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reference Number:&#10;" textAlignment="JUSTIFY">
+                                 <font>
+                                    <Font name="Monospaced Regular" size="12.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TEST" />
+                           </children>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow height="0.0" offsetX="2.0" offsetY="2.0" radius="0.0" width="0.0">
+                                 <color>
+                                    <Color opacity="0.3549618422985077" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </VBox.margin>
+                        </TextFlow>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
          </children>
       </VBox>
    </children>
