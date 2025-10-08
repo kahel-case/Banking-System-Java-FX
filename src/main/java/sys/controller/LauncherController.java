@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LauncherController implements Initializable {
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         page_launcher.setVisible(true);
@@ -38,49 +39,76 @@ public class LauncherController implements Initializable {
     @FXML
     private void signInButtonClick() {
         refreshFields();
+        page_signIn.setVisible(true);
         page_launcher.setVisible(false);
         page_createAccount.setVisible(false);
-        page_signIn.setVisible(true);
     }
 
     @FXML
     protected void createAccountButtonClick() {
         refreshFields();
+        page_createAccount.setVisible(true);
         page_launcher.setVisible(false);
         page_signIn.setVisible(false);
-        page_createAccount.setVisible(true);
     }
 
     @FXML
     protected void backToMainButtonClick() {
         refreshFields();
+        page_launcher.setVisible(true);
         page_signIn.setVisible(false);
         page_createAccount.setVisible(false);
-        page_launcher.setVisible(true);
     }
 
     @FXML
     protected void createAccountSuccessful() {
-        refreshFields();
-        JOptionPane.showMessageDialog(null, "Successfully create a new account!");
+        String username = textField_createUserName.getText().trim();
+        String password = passwordField_createPassword.getText();
+        String confirmPassword = passwordField_confirmPassword.getText();
 
-        page_signIn.setVisible(false);
-        page_createAccount.setVisible(false);
-        page_launcher.setVisible(true);
+        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill out all fields!");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(null, "Passwords do not match!");
+            return;
+        }
+
+        if (Utility.usernameExists(username)) {
+            JOptionPane.showMessageDialog(null, "Username already exists!");
+            return;
+        }
+
+        boolean success = Utility.createUser(username, password);
+        if (success) {
+            JOptionPane.showMessageDialog(null, "Account created successfully!");
+            backToMainButtonClick();
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to create account. Try again.");
+        }
     }
 
     @FXML
     protected void logInSuccessful() throws IOException {
-        refreshFields();
+        String username = textField_userName.getText().trim();
+        String password = passwordField_password.getText();
 
-        String mainApplication = "/sys/bankingsystemjavafx/main_application.fxml";
-        String style = "style.css";
-        Utility.switchScene((Stage) btn_logIn.getScene().getWindow(), mainApplication, style);
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter both username and password!");
+            return;
+        }
+
+        if (Utility.validateLogin(username, password)) {
+            String mainApplication = "/sys/bankingsystemjavafx/main_application.fxml";
+            String style = "style.css";
+            Utility.switchSceneWithUser((Stage) btn_logIn.getScene().getWindow(), mainApplication, style, username);
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid username or password!");
+        }
     }
 
-    /*
-    *  PRIVATE METHODS
-    * */
     private void refreshFields() {
         textField_userName.setText("");
         textField_createUserName.setText("");
@@ -88,5 +116,4 @@ public class LauncherController implements Initializable {
         passwordField_createPassword.setText("");
         passwordField_confirmPassword.setText("");
     }
-
 }

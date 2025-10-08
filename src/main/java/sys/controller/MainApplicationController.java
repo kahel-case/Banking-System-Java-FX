@@ -4,10 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -15,9 +16,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import sys.utility.FileHandler;
 import sys.utility.Utility;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -30,8 +33,7 @@ import java.util.regex.Pattern;
 public class MainApplicationController implements Initializable {
 
     private double _currentBalance;
-    private String _userName;
-    private TextFlow[] TransactionLogs;
+    private String currentUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -69,6 +71,8 @@ public class MainApplicationController implements Initializable {
     @FXML private TextField textField_receiverName;
 
     @FXML private Button btn_logOut;
+
+    @FXML private TextArea textArea_history;
 
     @FXML
     protected void depositButtonClick() {
@@ -111,8 +115,9 @@ public class MainApplicationController implements Initializable {
     /*
     *  ACTION BUTTONS
     * */
-    @FXML
+    @FXML // SUCCESS
     protected void depositAction() {
+        double amount = parseAmount(textField_deposit.getText());
         if (textField_deposit.getText().isBlank()) {
             refreshFields();
             message("Please enter an amount!", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -123,6 +128,12 @@ public class MainApplicationController implements Initializable {
             message("Input that is equal to or less than zero is not permitted!", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (amount <= 0) {
+            return;
+        }
+        _currentBalance += amount;
+        setCurrentBalanceLabels();
+        FileHandler.recordTransaction(currentUser, "Deposit", amount, _currentBalance);
 
         TransactionLog log = new TransactionLog(0, Double.parseDouble(textField_deposit.getText()), "DEPOSIT");
         transactionHistory_contentArea.getChildren().addFirst(log);
@@ -132,6 +143,7 @@ public class MainApplicationController implements Initializable {
 
     @FXML
     protected void withdrawAction() {
+        double amount = parseAmount(textField_withdraw.getText());
         if (textField_withdraw.getText().isBlank()) {
             refreshFields();
             message("Please enter an amount!", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -142,6 +154,13 @@ public class MainApplicationController implements Initializable {
             message("Input that is equal to or less than zero is not permitted!", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (amount <= 0 || amount > _currentBalance) {
+            message("The amount you wish to withdraw is out of your scope!", "Transaction Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        _currentBalance -= amount;
+        setCurrentBalanceLabels();
+        FileHandler.recordTransaction(currentUser, "Withdraw", amount, _currentBalance);
 
         TransactionLog log = new TransactionLog(0, Double.parseDouble(textField_withdraw.getText()), "WITHDRAW");
         transactionHistory_contentArea.getChildren().addFirst(log);
@@ -151,6 +170,9 @@ public class MainApplicationController implements Initializable {
 
     @FXML
     protected void transferAction() {
+        double amount = parseAmount(textField_transfer.getText());
+        String receiver = textField_receiverName.getText();
+
         if (textField_transfer.getText().isBlank()) {
             refreshFields();
             message("Please enter an amount!", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -161,11 +183,17 @@ public class MainApplicationController implements Initializable {
             message("Input that is equal to or less than zero is not permitted!", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (amount > _currentBalance) {
+            message("The amount you wish to transfer is out of your scope!", "Transaction Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (textField_receiverName.getText().isBlank()) {
-            refreshFields();
             message("Please enter the receiver's name!", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        _currentBalance -= amount;
+        setCurrentBalanceLabels();
+        FileHandler.recordTransaction(currentUser, "Transfer to " + receiver, amount, _currentBalance);
 
         TransactionLog log = new TransactionLog(0, Double.parseDouble(textField_transfer.getText()), textField_receiverName.getText(), "TRANSFER");
         transactionHistory_contentArea.getChildren().addFirst(log);
@@ -176,6 +204,29 @@ public class MainApplicationController implements Initializable {
     /*
      *  PRIVATE METHODS
      * */
+    private double parseAmount(String input) {
+        try {
+            return Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public void setUsername(String username) {
+        this.currentUser = username;
+        label_userName.setText(username);
+
+        EventQueue.invokeLater(() -> {
+            String history = FileHandler.getTransactions(currentUser);
+            setCurrentBalance(Utility.getLatestBalance(history));
+        });
+    }
+
+    public void setCurrentBalance(Double currentBalance) {
+        this._currentBalance = currentBalance;
+        setCurrentBalanceLabels();
+    }
+
     private enum Page {
         MENU, DEPOSIT, WITHDRAW, TRANSFER, HISTORY, NOTIFICATIONS
     }
@@ -199,7 +250,7 @@ public class MainApplicationController implements Initializable {
     }
 
     private void setCurrentBalanceLabels() {
-        DecimalFormat d = new DecimalFormat("#,###");
+        DecimalFormat d = new DecimalFormat("#,###.##");
         String formattedBalance = d.format(_currentBalance);
         label_mainMenu_currentBalance.setText(formattedBalance);
         label_deposit_currentBalance.setText(formattedBalance);

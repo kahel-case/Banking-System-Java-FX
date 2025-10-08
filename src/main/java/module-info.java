@@ -4,7 +4,6 @@ module sys.bankingsystemjavafx {
 
     requires com.dlsc.formsfx;
     requires java.desktop;
-    requires charm.glisten;
 
     opens sys.bankingsystemjavafx to javafx.fxml;
     exports sys.bankingsystemjavafx;
