@@ -26,9 +26,12 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
+
+import static sys.utility.TransactionParser.parseTransactions;
 
 public class MainApplicationController implements Initializable {
 
@@ -64,6 +67,7 @@ public class MainApplicationController implements Initializable {
     @FXML private VBox page_notifications;
 
     @FXML private VBox transactionHistory_contentArea;
+    @FXML private VBox notification_contentArea;
 
     @FXML private TextField textField_deposit;
     @FXML private TextField textField_withdraw;
@@ -191,9 +195,24 @@ public class MainApplicationController implements Initializable {
             message("Please enter the receiver's name!", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (!Utility.usernameExists(receiver)) {
+            message("That user does not exits!", "User Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         _currentBalance -= amount;
+
+        String history = FileHandler.getTransactions(receiver);
+        double receiverLatestBalance;
+        try {
+            receiverLatestBalance = Utility.getLatestBalance(history);
+        } catch (Exception e) {
+            receiverLatestBalance = 0;
+        }
+        double receiverNewBalance = receiverLatestBalance + amount;
+
         setCurrentBalanceLabels();
-        FileHandler.recordTransaction(currentUser, "Transfer to " + receiver, amount, _currentBalance);
+        FileHandler.recordTransaction(currentUser, "TRANSFER to " + receiver, amount, _currentBalance);
+        FileHandler.recordTransaction(receiver, "TRANSFER from " + currentUser, amount, receiverNewBalance);
 
         TransactionLog log = new TransactionLog(0, Double.parseDouble(textField_transfer.getText()), textField_receiverName.getText(), "TRANSFER");
         transactionHistory_contentArea.getChildren().addFirst(log);
@@ -219,6 +238,12 @@ public class MainApplicationController implements Initializable {
         EventQueue.invokeLater(() -> {
             String history = FileHandler.getTransactions(currentUser);
             setCurrentBalance(Utility.getLatestBalance(history));
+
+            List<String[]> parsedHistory = parseTransactions(history);
+            for (String[] arr : parsedHistory) {
+                TransactionLog log = new TransactionLog(0, arr[0], arr[2], arr[1]);
+                transactionHistory_contentArea.getChildren().addFirst(log);
+            }
         });
     }
 
@@ -343,9 +368,48 @@ public class MainApplicationController implements Initializable {
                             %-30s %-30d%n\
                             %-30s %-30s%n\
                             %-30s ₱%-30.2f%n\
+                            %-30s %S to %s""",
+                    "Reference Number:", referenceNumber, "Date & Time:", formattedDateTime, "Amount:", amount, "Payment Method:", paymentMethod, receiver));
+            this.getChildren().add(text);
+
+            VBox.setMargin(this, new Insets(15));
+            this.setPadding(new Insets(15));
+        }
+        TransactionLog(int referenceNumber, String date, String amount, String paymentMethod) {
+            Text text = new Text();
+
+            this.setId("transaction_log");
+            this.getStylesheets().add("style.css");
+            this.setLineSpacing(5);
+
+            text.setFont(Font.font("Monospaced", 12));
+            text.setText(String.format("""
+                            %-30s %-30d%n\
+                            %-30s %-30s%n\
                             %-30s %-30s%n\
                             %-30s %-30S""",
-                    "Reference Number:", referenceNumber, "Date & Time:", formattedDateTime, "Amount:", amount, "Receiver's Name:", receiver, "Payment Method:", paymentMethod));
+                    "Reference Number:", referenceNumber, "Date & Time:", date, "Amount:", amount, "Payment Method:", paymentMethod));
+            this.getChildren().add(text);
+
+            VBox.setMargin(this, new Insets(15));
+            this.setPadding(new Insets(15));
+        }
+    }
+
+    private static class Notification extends TextFlow {
+        Notification(double amount, String sender) {
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = now.format(formatter);
+
+            Text text = new Text();
+
+            this.setId("transaction_log");
+            this.getStylesheets().add("style.css");
+            this.setLineSpacing(5);
+
+            text.setFont(Font.font("Monospaced", 12));
+            text.setText(String.format("You received %.2f from %s", amount, sender));
             this.getChildren().add(text);
 
             VBox.setMargin(this, new Insets(15));
