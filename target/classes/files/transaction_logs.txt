@@ -1,0 +1,6 @@
+samortega,0,100,BANK_TRANSFER,
+samortega,1,10090,BANK_TRANSFER,
+samortega,2,100,BANK_TRANSFER,
+samortega,3,156700,BANK_TRANSFER,
+samortega,4,3100,BANK_TRANSFER,
+samortega,5,8100,BANK_TRANSFER,

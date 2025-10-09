@@ -1,0 +1,96 @@
+[Runtime Monitor] readUserStatusFile() completed.
+- Thread: JavaFX Application Thread
+- Execution time: 32.481 ms
+- Memory used: 301.45 KB
+
+
+[Runtime Monitor] readUserStatusFile() completed.
+- Thread: JavaFX Application Thread
+- Execution time: 15.448 ms
+- Memory used: 0.00 KB
+
+
+[Runtime Monitor] readUserStatusFile() completed.
+- Thread: JavaFX Application Thread
+- Execution time: 31.396 ms
+- Memory used: 0.00 KB
+
+
+[Runtime Monitor] Depositing completed.
+- Thread: JavaFX Application Thread
+- Execution time: 13.831 ms
+- Memory used: 300.55 KB
+
+
+[Runtime Monitor] Withdraw completed.
+- Thread: JavaFX Application Thread
+- Execution time: 5.230 ms
+- Memory used: 276.50 KB
+
+
+[Runtime Monitor] Withdraw completed.
+- Thread: JavaFX Application Thread
+- Execution time: 4.375 ms
+- Memory used: 0.00 KB
+
+
+[Runtime Monitor] Withdraw completed.
+- Thread: JavaFX Application Thread
+- Execution time: 4.937 ms
+- Memory used: 0.00 KB
+
+
+[Runtime Monitor] Transfer completed.
+- Thread: JavaFX Application Thread
+- Execution time: 8.639 ms
+- Memory used: 0.00 KB
+
+
+[Runtime Monitor] readUserStatusFile() completed.
+- Thread: JavaFX Application Thread
+- Execution time: 11.291 ms
+- Memory used: 0.00 KB
+
+
+[Runtime Monitor] FraudDetection.detectSuspiciousUsers() complete.
+- Thread: Thread-3
+- Execution time: 56.642 ms
+- Memory used: 5101.34 KB
+
+
+[Runtime Monitor] Depositing completed.
+- Thread: JavaFX Application Thread
+- Execution time: 4.975 ms
+- Memory used: 1024.00 KB
+
+
+[Runtime Monitor] readUserStatusFile() completed.
+- Thread: JavaFX Application Thread
+- Execution time: 4.120 ms
+- Memory used: 0.00 KB
+
+
+[Runtime Monitor] FraudDetection.detectSuspiciousUsers() complete.
+- Thread: Thread-4
+- Execution time: 96.240 ms
+- Memory used: -34031.27 KB
+
+
+[Runtime Monitor] Withdraw completed.
+- Thread: JavaFX Application Thread
+- Execution time: 3.772 ms
+- Memory used: 0.00 KB
+
+
+[Runtime Monitor] readUserStatusFile() completed.
+- Thread: JavaFX Application Thread
+- Execution time: 2.237 ms
+- Memory used: 0.00 KB
+
+
+[Runtime Monitor] FraudDetection.detectSuspiciousUsers() complete.
+- Thread: Thread-5
+- Execution time: 63.401 ms
+- Memory used: 1894.36 KB
+
+

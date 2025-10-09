@@ -1,0 +1,21 @@
+
+Runtime rt = Runtime.getRuntime();
+long beforeUsedMem = rt.totalMemory() - rt.freeMemory();
+long startTime = System.nanoTime();
+
+long endTime = System.nanoTime();
+long afterUsedMem = rt.totalMemory() - rt.freeMemory();
+
+String output = String.format("""
+                [Runtime Monitor] readUserStatusFile() completed.
+                - Thread: %s
+                - Execution time: %.3f ms
+                - Memory used: %.2f KB
+
+                """,
+        Thread.currentThread().getName(),
+                (endTime - startTime) / 1_000_000.0,
+                (afterUsedMem - beforeUsedMem) / 1024.0);
+
+System.out.printf(output);
+FileHandler.saveRuntime(output);

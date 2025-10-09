@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sys.controller.MainApplicationController">
+   <children>
+      <VBox fx:id="page_mainMenu" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="18.0" StackPane.alignment="TOP_CENTER">
+         <children>
+            <HBox>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <HBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="btn_logOut" mnemonicParsing="false" onAction="#logOutSuccessful" prefHeight="54.0" prefWidth="54.0" HBox.hgrow="ALWAYS">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/Icons/Button/icon_logout.png" />
+                                 </image>
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT" visible="false" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="btn_notification" mnemonicParsing="false" onAction="#notificationButtonClick" prefHeight="54.0" prefWidth="54.0" HBox.hgrow="ALWAYS">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/Icons/Button/icon_bell.png" />
+                                 </image>
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="254.0" fitWidth="296.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Background/background_gray_2.png" />
+                     </image>
+                     <effect>
+                        <DropShadow height="1.0" offsetX="2.0" offsetY="2.0" radius="0.0" width="0.0">
+                           <color>
+                              <Color opacity="0.18320611119270325" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </ImageView>
+                  <VBox fx:id="page_main" alignment="TOP_CENTER" spacing="18.0">
+                     <children>
+                        <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS">
+                           <children>
+                              <ImageView fx:id="avatar" fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/Profile/profile_default.jpg" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="label_userName" text="User">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" maxWidth="300.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" text="Balance" textAlignment="CENTER" />
+                              <HBox alignment="CENTER" prefWidth="200.0">
+                                 <children>
+                                    <Label text="₱">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="label_mainMenu_currentBalance" text="1,000,000.00">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+            <TilePane alignment="CENTER" hgap="5.0" prefColumns="1" vgap="5.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="btn_deposit" mnemonicParsing="false" onAction="#depositButtonClick" prefHeight="50.0" prefWidth="110.0" text="Deposit">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_deposit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btn_withdraw" mnemonicParsing="false" onAction="#withdrawButtonClick" prefHeight="50.0" prefWidth="110.0" text="Withdraw">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_withdraw.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btn_transfer" mnemonicParsing="false" onAction="#transferButtonClick" prefHeight="50.0" prefWidth="110.0" text="Transfer">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_bankTransfer.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btn_history" mnemonicParsing="false" onAction="#historyButtonClick" prefHeight="50.0" prefWidth="110.0" text="History">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_transactionHistory.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </TilePane>
+         </children>
+         <padding>
+            <Insets bottom="60.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="page_deposit" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false" StackPane.alignment="TOP_CENTER">
+         <children>
+            <HBox id="background_sharp" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#backToMainMenu" text="Back">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_arrow_left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="DEPOSIT" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox id="background_sharp" alignment="TOP_CENTER" maxWidth="300.0" prefWidth="300.0">
+                     <children>
+                        <Label alignment="CENTER" text="Current Balance" textAlignment="CENTER" />
+                        <HBox alignment="CENTER" prefWidth="200.0">
+                           <children>
+                              <Label text="₱">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="label_deposit_currentBalance" text="1,000,000.00">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow height="0.0" offsetX="2.0" offsetY="2.0" radius="0.0" width="0.0">
+                           <color>
+                              <Color opacity="0.33969464898109436" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </VBox>
+                  <TextField fx:id="textField_deposit" alignment="CENTER" maxWidth="-Infinity" prefHeight="34.0" prefWidth="454.0" promptText="Enter amount you wish to deposit">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="btn_depositAction" mnemonicParsing="false" onAction="#depositAction" prefHeight="47.0" prefWidth="110.0" text="Deposit" />
+               </children>
+               <VBox.margin>
+                  <Insets left="40.0" right="40.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox fx:id="page_withdraw" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+         <children>
+            <HBox id="background_sharp" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#backToMainMenu" text="Back">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_arrow_left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="WITHDRAW" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox id="background_sharp" alignment="TOP_CENTER" maxWidth="300.0" prefWidth="300.0">
+                     <children>
+                        <Label alignment="CENTER" text="Current Balance" textAlignment="CENTER" />
+                        <HBox alignment="CENTER" prefWidth="200.0">
+                           <children>
+                              <Label text="₱">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="label_withdraw_currentBalance" text="1,000,000.00">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow height="0.0" offsetX="2.0" offsetY="2.0" radius="0.0" width="0.0">
+                           <color>
+                              <Color opacity="0.33969464898109436" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </VBox>
+                  <TextField fx:id="textField_withdraw" alignment="CENTER" maxWidth="-Infinity" prefHeight="34.0" prefWidth="454.0" promptText="Enter amount you wish to withdraw">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="btn_withdrawAction" mnemonicParsing="false" onAction="#withdrawAction" prefHeight="47.0" prefWidth="110.0" text="Withdraw" />
+               </children>
+               <VBox.margin>
+                  <Insets left="40.0" right="40.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox fx:id="page_transfer" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+         <children>
+            <HBox id="background_sharp" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#backToMainMenu" text="Back">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_arrow_left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="BANK TRANSFER" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox id="background_sharp" alignment="TOP_CENTER" maxWidth="300.0" prefWidth="300.0">
+                     <children>
+                        <Label alignment="CENTER" text="Current Balance" textAlignment="CENTER" />
+                        <HBox alignment="CENTER" prefWidth="200.0">
+                           <children>
+                              <Label text="₱">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="label_transfer_currentBalance" text="1,000,000.00">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow height="0.0" offsetX="2.0" offsetY="2.0" radius="0.0" width="0.0">
+                           <color>
+                              <Color opacity="0.33969464898109436" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </VBox>
+                  <TextField fx:id="textField_transfer" alignment="CENTER" maxWidth="-Infinity" prefHeight="34.0" prefWidth="454.0" promptText="Enter amount you wish to transfer">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="textField_receiverName" alignment="CENTER" maxWidth="-Infinity" prefHeight="34.0" prefWidth="454.0" promptText="Enter the receiver's name">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="btn_transferAction" mnemonicParsing="false" onAction="#transferAction" prefHeight="47.0" prefWidth="110.0" text="Transfer" />
+               </children>
+               <VBox.margin>
+                  <Insets left="40.0" right="40.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox fx:id="page_history" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+         <children>
+            <HBox id="background_sharp" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#backToMainMenu" text="Back">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_arrow_left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="TRANSACTION HISTORY" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+            <ScrollPane fitToHeight="true" fitToWidth="true">
+               <content>
+                  <VBox fx:id="transactionHistory_contentArea" alignment="TOP_CENTER" minWidth="532.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+      <VBox fx:id="page_notifications" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <HBox id="background_sharp" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#backToMainMenu" text="Back">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Icons/Button/icon_arrow_left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="NOTIFICATIONS" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+            <ScrollPane fitToHeight="true" fitToWidth="true">
+               <content>
+                  <VBox fx:id="notification_contentArea" alignment="TOP_CENTER" minWidth="532.0">
+                     <children>
+                        <TextFlow id="background_sharp" disable="true" lineSpacing="5.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" textAlignment="JUSTIFY">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="You have received P600.00 from Sam" textAlignment="JUSTIFY">
+                                 <font>
+                                    <Font name="Monospaced Regular" size="12.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow height="0.0" offsetX="2.0" offsetY="2.0" radius="0.0" width="0.0">
+                                 <color>
+                                    <Color opacity="0.3549618422985077" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </VBox.margin>
+                        </TextFlow>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</StackPane>
