@@ -13,17 +13,50 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import sys.utility.Utility;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class AdminPanelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        UserStatus u = new UserStatus("Sam","Fraudulent activities detected", "Active");
-        u.getUserName().setText("ASDASD");
-        user_contentArea.getChildren().addFirst(u);
+        readUserStatusFile();
+    }
+
+    @SuppressWarnings("unchecked")
+    public void readUserStatusFile() {
+        String STATUS_FILE = "userStatus.dat";
+        File f = new File(STATUS_FILE);
+        Map<String, String> userMap = new HashMap<>();
+
+        if (!f.exists()) {
+            return;
+        }
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
+            Object obj = ois.readObject();
+            if (obj instanceof Map<?, ?> map) {
+                for (Object key : map.keySet()) {
+                    if (key instanceof String username && map.get(key) instanceof String status) {
+                        if (username.equals("admin")) {
+                            continue;
+                        }
+                        if (status.equalsIgnoreCase("Active") || status.equalsIgnoreCase("Blocked")) {
+                            UserStatus u = new UserStatus(username, "- No activities - ", status);
+                            user_contentArea.getChildren().addFirst(u);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML private Button backToLoginPage;
@@ -39,12 +72,16 @@ public class AdminPanelController implements Initializable {
         Utility.switchScene((Stage) backToLoginPage.getScene().getWindow(), launcher, style);
     }
 
-    private static void blockUser() {
-        System.out.println("asd");
+    private static void blockUser(Text userName, Text status) {
+        status.setText("Blocked");
+        Utility.setStatus(userName.getText(), status.getText());
+        System.out.println(userName.getText());
     }
 
-    private static void unblockUser() {
-        System.out.println("asd");
+    private static void unblockUser(Text userName, Text status) {
+        status.setText("Active");
+        Utility.setStatus(userName.getText(), status.getText());
+        System.out.println(userName.getText());
     }
 
     private static class UserStatus extends HBox {
@@ -76,10 +113,10 @@ public class AdminPanelController implements Initializable {
             """);
 
             // --- Create text elements ---
-            this.userName = new Text(userName + " - ");
+            this.userName = new Text(userName);
             this.userName.setStyle("-fx-fill: #555; -fx-font-weight: bold;");
 
-            this.comment = new Text(comment + " - ");
+            this.comment = new Text(comment);
             this.comment.setStyle("-fx-fill: #0078d7; -fx-font-weight: bold;");
 
             this.status = new Text(status);
@@ -93,7 +130,7 @@ public class AdminPanelController implements Initializable {
             // --- Buttons ---
             blockButton = new Button("Block User");
             blockButton.setId("blockUser");
-            blockButton.setOnAction(_ -> blockUser());
+            blockButton.setOnAction(_ -> blockUser(this.userName, this.status));
             blockButton.setStyle("""
                 -fx-background-color: #dc3545;
                 -fx-text-fill: white;
@@ -103,7 +140,7 @@ public class AdminPanelController implements Initializable {
 
             unblockButton = new Button("Unblock User");
             unblockButton.setId("unblockUser");
-            unblockButton.setOnAction(_ -> unblockUser());
+            unblockButton.setOnAction(_ -> unblockUser(this.userName, this.status));
             unblockButton.setStyle("""
                 -fx-background-color: #28a745;
                 -fx-text-fill: white;

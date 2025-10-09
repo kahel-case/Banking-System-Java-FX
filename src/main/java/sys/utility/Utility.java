@@ -78,7 +78,9 @@ public class Utility {
         String password = "123";
         if (usernameExists(username)) return;
         users.put(username, password);
+        userStatus.put(username, "Active");
         saveUsers();
+        saveUserStatus();
     }
 
     public static boolean validateLogin(String username, String password) {
@@ -86,7 +88,7 @@ public class Utility {
     }
 
     // === USER ACCOUNT SYSTEM ===
-    private static final String STATUS_FILE = "users.dat";
+    private static final String STATUS_FILE = "userStatus.dat";
     private static Map<String, String> userStatus = loadUserStatus();
 
     @SuppressWarnings("unchecked")
@@ -102,7 +104,7 @@ public class Utility {
     }
 
     private static void saveUserStatus() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(STATUS_FILE))) {
             oos.writeObject(userStatus);
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,13 +124,13 @@ public class Utility {
     }
 
     public static void setStatus(String username, String status) {
-        if (!userExists(username)) return;
-        users.put(username, status);
-        saveUsers();
+        //if (!userExists(username)) return;
+        userStatus.put(username, status);
+        saveUserStatus();
     }
 
     public static String getStatus(String username) {
-        return users.getOrDefault(username, "Unknown");
+        return userStatus.getOrDefault(username, "Unknown");
     }
 
     public static boolean isActive(String username) {

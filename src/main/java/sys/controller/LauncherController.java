@@ -81,7 +81,7 @@ public class LauncherController implements Initializable {
             return;
         }
 
-        boolean success = Utility.createUser(username, password);
+        boolean success = Utility.createUser(username, password) && Utility.createUserStatus(username);
         if (success) {
             JOptionPane.showMessageDialog(null, "Account created successfully!");
             backToMainButtonClick();
@@ -101,6 +101,10 @@ public class LauncherController implements Initializable {
         }
 
         if (Utility.validateLogin(username, password)) {
+            if (!Utility.isActive(username)) {
+                JOptionPane.showMessageDialog(null, "You account has been blocked by the admin!");
+                return;
+            }
             String mainApplication = "/sys/bankingsystemjavafx/main_application.fxml";
             String style = "style.css";
             Utility.switchSceneWithUser((Stage) btn_logIn.getScene().getWindow(), mainApplication, style, username);
